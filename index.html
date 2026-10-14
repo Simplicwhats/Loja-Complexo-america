@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complexo América | Loja Oficial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        cardBg: '#131c2e',
+                        cardHover: '#1e293b',
+                        neonBlue: '#00f2fe',
+                        neonPurple: '#7f00ff',
+                        neonGold: '#fbbf24',
+                        accentCyan: '#06b6d4'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon': '0 0 20px rgba(0, 242, 254, 0.3)',
+                        'neon-purple': '0 0 20px rgba(127, 0, 255, 0.3)',
+                        'neon-gold': '0 0 20px rgba(251, 191, 36, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+
+        :root { color-scheme: dark; --ca-blue:#4da3ff; --ca-red:#ff354d; --ca-bg:#080b13; }
+        body { background-color: var(--ca-bg); color:#f8fafc; overflow-x:hidden; }
+        body::before { content:""; position:fixed; inset:0; z-index:-2; pointer-events:none; background-image:linear-gradient(115deg,rgba(5,8,16,.88),rgba(6,12,25,.82) 50%,rgba(30,5,15,.84)),url("https://kgidkxaqvgcqiqwqxvut.supabase.co/storage/v1/object/public/comprovantes/comprovantes/complexo.webp"); background-position:center; background-size:cover; background-repeat:no-repeat; }
+        body::after { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; background:radial-gradient(ellipse at 15% 10%,rgba(42,119,255,.13),transparent 35%),radial-gradient(ellipse at 90% 35%,rgba(255,36,69,.12),transparent 32%); }
+        .glass-panel { background:rgba(10,16,29,.78); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(110,160,220,.16); }
+        .glass-nav { background:rgba(5,9,17,.91); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border-bottom:1px solid rgba(95,145,210,.2); }
+        .text-glow { text-shadow:0 0 18px rgba(77,163,255,.55); }
+        .text-glow-gold { text-shadow:0 0 18px rgba(255,53,77,.4); }
+        .gradient-border { position:relative; border-radius:1rem; background:linear-gradient(135deg,rgba(77,163,255,.45),rgba(255,53,77,.4)); padding:1px; }
+        .gradient-border-content { background:#0b1220; border-radius:1rem; }
+        ::-webkit-scrollbar { width:8px; }
+        ::-webkit-scrollbar-track { background:#080b13; }
+        ::-webkit-scrollbar-thumb { background:#25344a; border-radius:4px; }
+        ::-webkit-scrollbar-thumb:hover { background:#3e5677; }
+        /* Rebalance the original template's cyan/purple/gold accents into blue and red. */
+        .text-cyan-400,.text-cyan-300,.text-neonBlue { color:#75b8ff !important; }
+        .text-purple-300,.text-purple-400,.text-neonPurple { color:#ff6578 !important; }
+        .bg-cyan-500 { background-color:#397fe8 !important; }
+        .bg-cyan-600 { background-color:#2868cc !important; }
+        .bg-purple-600,.bg-purple-900\/40 { background-color:rgba(190,35,58,.72) !important; }
+        .border-cyan-500,.border-cyan-500\/20,.border-cyan-500\/30,.border-cyan-500\/40,.border-cyan-500\/50,.border-cyan-500\/60 { border-color:rgba(77,163,255,.52) !important; }
+        .from-cyan-500 { --tw-gradient-from:#397fe8 var(--tw-gradient-from-position) !important; --tw-gradient-to:rgb(57 127 232 / 0%) !important; }
+        .to-blue-600 { --tw-gradient-to:#ff354d var(--tw-gradient-to-position) !important; }
+        .shadow-neon { box-shadow:0 0 22px rgba(77,163,255,.22) !important; }
+        .status-dot { display:inline-block;width:.55rem;height:.55rem;border-radius:999px;background:#94a3b8;box-shadow:0 0 0 4px rgba(148,163,184,.12); }
+        .status-dot.online { background:#34d399;box-shadow:0 0 0 4px rgba(52,211,153,.13); }
+        .status-dot.offline { background:#fb7185;box-shadow:0 0 0 4px rgba(251,113,133,.13); }
+        .status-dot.loading { background:#fbbf24;animation:pulse 1.2s infinite; }
+        @keyframes pulse { 50% { opacity:.35; } }
+        .ca-notice { display:none; margin-top:12px; border:1px solid rgba(148,163,184,.22); border-radius:12px; padding:10px 12px; font-size:12px; text-align:left; }
+        .ca-notice.show { display:block; }
+        .ca-notice.error { color:#fecdd3;background:rgba(127,29,29,.25);border-color:rgba(251,113,133,.35); }
+        .ca-notice.info { color:#bfdbfe;background:rgba(30,64,175,.18);border-color:rgba(96,165,250,.28); }
+        .ca-notice.success { color:#bbf7d0;background:rgba(6,78,59,.2);border-color:rgba(52,211,153,.28); }
+        @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
+    </style>
+</head>
+<body class="bg-darkBg font-sans text-slate-100 antialiased selection:bg-neonBlue selection:text-darkBg">
+
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-500 via-purple-600 to-amber-400 p-[2px] shadow-neon">
+                    <div class="w-full h-full bg-darkBg rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-neonBlue text-xl group-hover:scale-110 transition-transform"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-wider bg-gradient-to-r from-neonBlue via-purple-400 to-neonGold bg-clip-text text-transparent">COMPLEXO AMÉRICA</span>
+                    <span class="block text-[10px] tracking-widest text-slate-400 font-semibold uppercase">FiveM Store RP</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#inicio" class="text-neonBlue hover:text-white transition-colors">Início</a>
+                <a href="#vips" class="text-slate-300 hover:text-neonBlue transition-colors">VIPs</a>
+                <a href="#veiculos" class="text-slate-300 hover:text-neonBlue transition-colors">Veículos</a>
+                <a href="#dinheiro" class="text-slate-300 hover:text-neonBlue transition-colors">Dinheiro</a>
+                <a href="#especiais" class="text-slate-300 hover:text-neonBlue transition-colors">ID & Extras</a>
+                <a href="#faq" class="text-slate-300 hover:text-neonBlue transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Actions / Cart / Discord Login -->
+            <div class="flex items-center gap-4">
+                <!-- Cart Button -->
+                <button onclick="toggleCart()" class="relative p-2.5 rounded-xl glass-panel text-slate-200 hover:text-neonBlue hover:border-cyan-500/50 transition-all">
+                    <i class="fa-solid fa-cart-shopping text-lg"></i>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-neon hidden">0</span>
+                </button>
+
+                <!-- Discord Login -->
+                <button onclick="toggleLoginModal()" id="auth-btn" class="hidden sm:flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold text-sm shadow-lg shadow-indigo-500/20 transition-all hover:scale-105">
+                    <i class="fa-brands fa-discord text-lg"></i>
+                    <span id="auth-label">Entrar com Discord</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl glass-panel text-slate-200">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-slate-800 px-6 py-4 space-y-4">
+            <a href="#inicio" onclick="toggleMobileMenu()" class="block text-slate-200 font-medium py-1">Início</a>
+            <a href="#vips" onclick="toggleMobileMenu()" class="block text-slate-200 font-medium py-1">VIPs</a>
+            <a href="#veiculos" onclick="toggleMobileMenu()" class="block text-slate-200 font-medium py-1">Veículos</a>
+            <a href="#dinheiro" onclick="toggleMobileMenu()" class="block text-slate-200 font-medium py-1">Dinheiro</a>
+            <a href="#especiais" onclick="toggleMobileMenu()" class="block text-slate-200 font-medium py-1">ID & Extras</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="block text-slate-200 font-medium py-1">FAQ</a>
+            <button onclick="toggleLoginModal(); toggleMobileMenu();" class="w-full py-2.5 rounded-xl bg-[#5865F2] text-white font-semibold flex items-center justify-center gap-2">
+                <i class="fa-brands fa-discord"></i> Entrar com Discord
+            </button>
+        </div>
+    </header>
+
+    <section id="inicio" class="relative pt-32 pb-20 lg:pt-44 lg:pb-32 overflow-hidden">
+        <!-- Background Glow Orbs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-wider shadow-neon">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span id="hero-server-label">Consultando servidor...</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none">
+                        VIVA A SUA <span class="bg-gradient-to-r from-neonBlue via-purple-400 to-neonGold bg-clip-text text-transparent text-glow">MELHOR HISTÓRIA</span> NO R.P.
+                    </h1>
+                    <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                        Adquira VIPs exclusivos, veículos importados, pacotes de dinheiro e personalize sua experiência no <strong class="text-white">Complexo América</strong>. Pagamento e entrega acompanhados por status do pedido; a entrega automática depende da integração segura com o servidor.
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#vips" class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-darkBg font-bold text-base shadow-neon transition-all hover:scale-105 flex items-center gap-3">
+                            <i class="fa-solid fa-crown"></i> Ver Planos VIP
+                        </a>
+                        <a href="https://discord.gg/complexoamerica" target="_blank" class="px-8 py-4 rounded-xl glass-panel hover:bg-slate-800/80 font-bold text-base border border-slate-700 transition-all hover:scale-105 flex items-center gap-3">
+                            <i class="fa-brands fa-discord text-indigo-400"></i> Acessar Discord
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Stats / Banner Card -->
+                <div class="lg:col-span-5">
+                    <div class="glass-panel p-8 rounded-3xl shadow-2xl relative border border-slate-700/50">
+                        <div class="absolute -top-3 -right-3 bg-amber-500 text-darkBg text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-neon-gold">
+                            🔥 Destaque
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+                                        <i class="fa-solid fa-users text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-slate-400 text-xs font-medium">Jogadores Online</div>
+                                        <div class="text-xl font-bold text-white" id="online-players">— / —</div><div id="server-status-detail" class="text-[11px] text-slate-500 mt-1">Aguardando consulta real</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span id="server-status-dot" class="status-dot loading"></span>
+                                    <span id="server-status-text" class="block text-xs text-slate-300 font-semibold mt-1">Verificando</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-darkBg/60 p-4 rounded-2xl border border-slate-800">
+                                    <div id="server-refresh-label" class="text-lg font-black text-blue-300">AO VIVO</div>
+                                    <div class="text-slate-400 text-xs">Status consultado automaticamente</div>
+                                </div>
+                                <div class="bg-darkBg/60 p-4 rounded-2xl border border-slate-800">
+                                    <div class="text-lg font-black text-rose-300">OFICIAL</div>
+                                    <div class="text-slate-400 text-xs">Comunidade Complexo América</div>
+                                </div>
+                            </div>
+                            <div class="bg-gradient-to-r from-purple-900/40 to-blue-900/40 p-4 rounded-2xl border border-purple-500/20 text-center">
+                                <p class="text-xs text-purple-300 font-medium">IP Direto para Conectar no FiveM:</p>
+                                <code class="text-sm font-mono text-cyan-300 font-bold mt-1 block select-all cursor-pointer" onclick="copyIP()">connect cpx.complexoamerica.com.br</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vips" class="py-20 relative bg-darkBg/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Benefícios Exclusivos</span>
+                <h2 class="text-3xl sm:text-5xl font-black mt-4 mb-4">ESCOLHA SEU <span class="text-neonBlue text-glow">VIP</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base">Garanta prioridade na fila, veículos mensais exclusivos, salário generoso in-game e muito mais para dominar a cidade.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-stretch">
+                <!-- VIP Bronze -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between relative border border-slate-800 hover:border-cyan-500/40 transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-700/20 flex items-center justify-center text-amber-600 border border-amber-700/30">
+                                <i class="fa-solid fa-shield text-2xl"></i>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-800 text-slate-300">30 Dias</span>
+                        </div>
+                        <h3 class="text-2xl font-black mb-1">VIP BRONZE</h3>
+                        <p class="text-slate-400 text-xs mb-6">Ideal para iniciar com vantagens competitivas.</p>
+                        
+                        <div class="mb-6">
+                            <span class="text-4xl font-black text-white">R$ 35</span>
+                            <span class="text-slate-400 text-xs">/mês</span>
+                        </div>
+
+                        <ul class="space-y-3.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> Fila Prioritária Nível 1</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> Salário In-Game: $150.000 / hora</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> 1x Carro Importado Bronze/mês</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> Casa VIP Básica inclusa</li>
+                            <li class="flex items-center gap-3 text-slate-500"><i class="fa-solid fa-xmark text-slate-600"></i> Cargo exclusivo no Discord</li>
+                        </ul>
+                    </div>
+                    <button onclick="addToCart('VIP Bronze', 35.00, 'vip')" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-cyan-500 hover:text-darkBg font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group-hover:shadow-neon">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <!-- VIP Prata (Popular) -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between relative border-2 border-cyan-500/60 shadow-neon bg-gradient-to-b from-cyan-950/20 to-transparent transform lg:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-blue-600 text-darkBg text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-neon">
+                        ⭐ Mais Vendido
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-6 pt-2">
+                            <div class="w-14 h-14 rounded-2xl bg-slate-300/20 flex items-center justify-center text-slate-200 border border-slate-300/30">
+                                <i class="fa-solid fa-medal text-2xl"></i>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300">30 Dias</span>
+                        </div>
+                        <h3 class="text-2xl font-black mb-1 text-cyan-300">VIP PRATA</h3>
+                        <p class="text-slate-400 text-xs mb-6">Para quem quer destaque e recursos avançados.</p>
+                        
+                        <div class="mb-6">
+                            <span class="text-4xl font-black text-white">R$ 70</span>
+                            <span class="text-slate-400 text-xs">/mês</span>
+                        </div>
+
+                        <ul class="space-y-3.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> Fila Prioritária Nível 2 (Alta)</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> Salário In-Game: $350.000 / hora</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> 2x Carros Importados Prata/mês</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> Mansão VIP Prata inclusa</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-cyan-400"></i> Cargo e Chat VIP no Discord</li>
+                        </ul>
+                    </div>
+                    <button onclick="addToCart('VIP Prata', 70.00, 'vip')" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-darkBg font-bold text-sm transition-all shadow-neon flex items-center justify-center gap-2 hover:scale-[1.02]">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <!-- VIP Ouro / Diamante -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between relative border border-amber-500/40 hover:border-amber-500/80 transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 border border-amber-500/30">
+                                <i class="fa-solid fa-crown text-2xl"></i>
+                            </div>
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-500/10 text-amber-300">30 Dias</span>
+                        </div>
+                        <h3 class="text-2xl font-black mb-1 text-amber-400">VIP OURO / DIAMANTE</h3>
+                        <p class="text-slate-400 text-xs mb-6">O ápice do poder e privilégios na cidade.</p>
+                        
+                        <div class="mb-6">
+                            <span class="text-4xl font-black text-white">R$ 130</span>
+                            <span class="text-slate-400 text-xs">/mês</span>
+                        </div>
+
+                        <ul class="space-y-3.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> Fila Prioritária Máxima (VIP Master)</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> Salário In-Game: $750.000 / hora</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> 3x Carros Importados à Escolha</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> Cobertura / Mansão Exclusiva</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-amber-400"></i> Kit Armas Leves Inicial + Placa Personalizada</li>
+                        </ul>
+                    </div>
+                    <button onclick="addToCart('VIP Ouro / Diamante', 130.00, 'vip')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-darkBg font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group-hover:shadow-neon-gold">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="veiculos" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Garagem Exclusiva</span>
+                <h2 class="text-3xl sm:text-5xl font-black mt-4 mb-4">VEÍCULOS <span class="text-neonBlue text-glow">IMPORTADOS</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base">Os carros mais velozes e desejados do mundo agora na sua garagem no Complexo América.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Vehicle 1 -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=600&q=80" alt="Lamborghini Aventador" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x400/131c2e/00f2fe?text=Lamborghini'">
+                            <span class="absolute top-3 right-3 z-20 bg-darkBg/80 backdrop-blur-md text-cyan-400 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-cyan-500/30">Super esportivo</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Pegassi</span>
+                            <h3 class="text-lg font-black text-white">Aventador SVJ</h3>
+                            <div class="flex items-center gap-4 text-xs text-slate-300 pt-2">
+                                <span><i class="fa-solid fa-gauge-high text-cyan-400"></i> 380 km/h</span>
+                                <span><i class="fa-solid fa-gear text-purple-400"></i> Tração 4x4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Preço</span>
+                            <span class="text-lg font-black text-cyan-300">R$ 55,00</span>
+                        </div>
+                        <button onclick="addToCart('Lamborghini Aventador SVJ', 55.00, 'veiculo')" class="px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-darkBg font-bold text-xs transition-all border border-cyan-500/40 flex items-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Comprar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vehicle 2 -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&q=80" alt="BMW M4 Competition" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x400/131c2e/00f2fe?text=BMW+M4'">
+                            <span class="absolute top-3 right-3 z-20 bg-darkBg/80 backdrop-blur-md text-cyan-400 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-cyan-500/30">Esportivo</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Ubermacht</span>
+                            <h3 class="text-lg font-black text-white">M4 Competition</h3>
+                            <div class="flex items-center gap-4 text-xs text-slate-300 pt-2">
+                                <span><i class="fa-solid fa-gauge-high text-cyan-400"></i> 340 km/h</span>
+                                <span><i class="fa-solid fa-gear text-purple-400"></i> Bi-Turbo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Preço</span>
+                            <span class="text-lg font-black text-cyan-300">R$ 40,00</span>
+                        </div>
+                        <button onclick="addToCart('BMW M4 Competition', 40.00, 'veiculo')" class="px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-darkBg font-bold text-xs transition-all border border-cyan-500/40 flex items-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Comprar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vehicle 3 -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80" alt="Porsche 911 GT3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x400/131c2e/00f2fe?text=Porsche'">
+                            <span class="absolute top-3 right-3 z-20 bg-darkBg/80 backdrop-blur-md text-cyan-400 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-cyan-500/30">Pista</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Pfister</span>
+                            <h3 class="text-lg font-black text-white">911 GT3 RS</h3>
+                            <div class="flex items-center gap-4 text-xs text-slate-300 pt-2">
+                                <span><i class="fa-solid fa-gauge-high text-cyan-400"></i> 360 km/h</span>
+                                <span><i class="fa-solid fa-gear text-purple-400"></i> Aerodinâmica</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Preço</span>
+                            <span class="text-lg font-black text-cyan-300">R$ 50,00</span>
+                        </div>
+                        <button onclick="addToCart('Porsche 911 GT3 RS', 50.00, 'veiculo')" class="px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-darkBg font-bold text-xs transition-all border border-cyan-500/40 flex items-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Comprar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vehicle 4 -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="Audi R8" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x400/131c2e/00f2fe?text=Audi+R8'">
+                            <span class="absolute top-3 right-3 z-20 bg-darkBg/80 backdrop-blur-md text-cyan-400 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-cyan-500/30">Esportivo</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Obey</span>
+                            <h3 class="text-lg font-black text-white">10F Widebody</h3>
+                            <div class="flex items-center gap-4 text-xs text-slate-300 pt-2">
+                                <span><i class="fa-solid fa-gauge-high text-cyan-400"></i> 350 km/h</span>
+                                <span><i class="fa-solid fa-gear text-purple-400"></i> V10 Aspirado</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Preço</span>
+                            <span class="text-lg font-black text-cyan-300">R$ 45,00</span>
+                        </div>
+                        <button onclick="addToCart('Obey 10F Widebody', 45.00, 'veiculo')" class="px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-darkBg font-bold text-xs transition-all border border-cyan-500/40 flex items-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Comprar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dinheiro" class="py-20 relative bg-darkBg/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">Economia In-Game</span>
+                <h2 class="text-3xl sm:text-5xl font-black mt-4 mb-4">PACOTES DE <span class="text-emerald-400" style="text-shadow: 0 0 15px rgba(52, 211, 153, 0.5);">DINHEIRO</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base">Precisa de capital para abrir seu negócio, comprar uma mansão ou tunar seus carros? Adquira dinheiro limpo ou sujo com entrega imediata.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Money Pack 1 -->
+                <div class="glass-panel rounded-3xl p-8 border border-slate-800 hover:border-emerald-500/40 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 mb-6">
+                            <i class="fa-solid fa-wallet text-2xl"></i>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Iniciante</span>
+                        <h3 class="text-2xl font-black mt-1 mb-2">R$ 500.000</h3>
+                        <p class="text-slate-400 text-xs mb-6">Perfeito para iniciar com conforto na cidade e garantir seu primeiro carro nacional.</p>
+                        <div class="text-3xl font-black text-white mb-6">R$ 20,00</div>
+                    </div>
+                    <button onclick="addToCart('Pacote 500k In-Game', 20.00, 'dinheiro')" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-emerald-500 hover:text-darkBg font-bold text-sm transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar
+                    </button>
+                </div>
+
+                <!-- Money Pack 2 -->
+                <div class="glass-panel rounded-3xl p-8 border border-emerald-500/50 bg-gradient-to-b from-emerald-950/20 to-transparent flex flex-col justify-between shadow-[0_0_20px_rgba(52,211,153,0.15)]">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 border border-emerald-500/30 mb-6">
+                            <i class="fa-solid fa-sack-dollar text-2xl"></i>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Mais Popular + Bônus</span>
+                        <h3 class="text-2xl font-black mt-1 mb-2">R$ 2.000.000</h3>
+                        <p class="text-slate-400 text-xs mb-6">Capital ideal para comprar empresas, armas e veículos importados de entrada.</p>
+                        <div class="text-3xl font-black text-white mb-6">R$ 50,00</div>
+                    </div>
+                    <button onclick="addToCart('Pacote 2M In-Game', 50.00, 'dinheiro')" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-darkBg font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar
+                    </button>
+                </div>
+
+                <!-- Money Pack 3 -->
+                <div class="glass-panel rounded-3xl p-8 border border-slate-800 hover:border-emerald-500/40 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 mb-6">
+                            <i class="fa-solid fa-vault text-2xl"></i>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Magnata</span>
+                        <h3 class="text-2xl font-black mt-1 mb-2">R$ 5.000.000</h3>
+                        <p class="text-slate-400 text-xs mb-6">Para quem deseja liderar facções, cartéis ou ser o maior empresário do Complexo.</p>
+                        <div class="text-3xl font-black text-white mb-6">R$ 100,00</div>
+                    </div>
+                    <button onclick="addToCart('Pacote 5M In-Game', 100.00, 'dinheiro')" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-emerald-500 hover:text-darkBg font-bold text-sm transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="especiais" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-purple-400 text-xs font-bold uppercase tracking-widest bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">Exclusividade Total</span>
+                <h2 class="text-3xl sm:text-5xl font-black mt-4 mb-4">ID PERSONALIZADO & <span class="text-purple-400" style="text-shadow: 0 0 15px rgba(127,0,255,0.5);">ITENS</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base">Escolha seu passaporte com número exclusivo de 1 a 999 ou adquira mochilas e itens raros.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Custom ID Card -->
+                <div class="glass-panel rounded-3xl p-8 border border-purple-500/30 flex flex-col justify-between hover:border-purple-500/60 transition-all">
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 border border-purple-500/30">
+                                <i class="fa-solid fa-id-card text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black">ID Personalizado (Passaporte)</h3>
+                                <span class="text-xs text-purple-300">Escolha seu número exclusivo</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-400 text-sm mb-6">Garanta um número de passaporte curto e fácil de memorizar (Ex: ID #07, #77, #123) sujeito a disponibilidade.</p>
+                        <div class="mb-6">
+                            <span class="text-3xl font-black text-white">R$ 60,00</span>
+                        </div>
+                    </div>
+                    <button onclick="addToCart('ID Personalizado (Passaporte)', 60.00, 'especial')" class="w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm transition-all shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar ID
+                    </button>
+                </div>
+
+                <!-- Backpack & Rare Items Card -->
+                <div class="glass-panel rounded-3xl p-8 border border-purple-500/30 flex flex-col justify-between hover:border-purple-500/60 transition-all">
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 border border-purple-500/30">
+                                <i class="fa-solid fa-backpack text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black">Mochila Tática + Kit Inicial</h3>
+                                <span class="text-xs text-purple-300">Capacidade de carga extra</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-400 text-sm mb-6">Aumente sua capacidade de inventário em +50kg permanentemente e receba kit com lockpick e rádio tático.</p>
+                        <div class="mb-6">
+                            <span class="text-3xl font-black text-white">R$ 30,00</span>
+                        </div>
+                    </div>
+                    <button onclick="addToCart('Mochila Tática + Kit Inicial', 30.00, 'especial')" class="w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm transition-all shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar Item
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 relative bg-darkBg/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Tire suas dúvidas</span>
+                <h2 class="text-3xl sm:text-5xl font-black mt-4 mb-4">PERGUNTAS <span class="text-neonBlue text-glow">FREQUENTES</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base">Tudo o que você precisa saber sobre o processo de compra e entrega no servidor.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(1)" class="w-full p-6 text-left flex items-center justify-between font-bold text-base text-white hover:text-cyan-400 transition-colors">
+                        <span>Como funciona a entrega dos itens e VIPs?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="faq-content-1" class="hidden px-6 pb-6 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-4">
+                        A entrega é 100% automatizada por nosso bot (Store Bot / Tebex). Assim que o pagamento via PIX é confirmado (geralmente em segundos), o cargo, veículo ou dinheiro é creditado automaticamente na sua conta do FiveM vinculada ao seu ID/Passaporte.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(2)" class="w-full p-6 text-left flex items-center justify-between font-bold text-base text-white hover:text-cyan-400 transition-colors">
+                        <span>Qual o tempo de confirmação do PIX?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="faq-content-2" class="hidden px-6 pb-6 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-4">
+                        O PIX é instantâneo! Em até 30 segundos após a leitura do QR Code no seu aplicativo bancário, o sistema reconhece o pagamento e dispara a entrega automática no servidor.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(3)" class="w-full p-6 text-left flex items-center justify-between font-bold text-base text-white hover:text-cyan-400 transition-colors">
+                        <span>Tive um problema na entrega, o que fazer?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="faq-content-3" class="hidden px-6 pb-6 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-4">
+                        Caso ocorra qualquer divergência ou demora, abra um ticket em nosso servidor oficial do Discord informando o comprovante de pagamento e o seu Passaporte/ID. Nossa staff resolverá imediatamente.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(4)" class="w-full p-6 text-left flex items-center justify-between font-bold text-base text-white hover:text-cyan-400 transition-colors">
+                        <span>Os VIPs são renovados automaticamente?</span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="faq-content-4" class="hidden px-6 pb-6 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-4">
+                        Não. Todos os planos VIP possuem duração de 30 dias corridos a partir da data da compra e não geram cobranças recorrentes no cartão. Você pode renovar quando desejar aqui na loja.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-lg rounded-3xl border border-slate-700 p-6 sm:p-8 relative shadow-2xl max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                <h3 class="text-xl font-black flex items-center gap-3">
+                    <i class="fa-solid fa-cart-shopping text-cyan-400"></i> Seu Carrinho
+                </h3>
+                <button onclick="toggleCart()" class="text-slate-400 hover:text-white p-2">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div id="cart-items-container" class="py-6 space-y-4 overflow-y-auto flex-1 max-h-[40vh]">
+                <!-- Dynamic Items -->
+                <div class="text-center text-slate-500 py-8">Seu carrinho está vazio.</div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-4 space-y-4">
+                <!-- FiveM Passaporte Input -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">Passaporte / ID do FiveM:</label>
+                    <input type="number" id="fivem-id" placeholder="Ex: 1234" class="w-full bg-darkBg border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors">
+                </div>
+
+                <div>
+                    <label for="buyer-email" class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">E-mail para o pagamento:</label>
+                    <input type="email" id="buyer-email" placeholder="voce@exemplo.com" autocomplete="email" class="w-full bg-darkBg border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors" required>
+                </div>
+                <div class="flex items-center justify-between text-lg font-black">
+                    <span>Total:</span>
+                    <span id="cart-total" class="text-cyan-400">R$ 0,00</span>
+                </div>
+
+                <button onclick="proceedToCheckout()" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-darkBg font-black text-base shadow-neon transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-lock"></i> Finalizar Compra com PIX
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-3xl border border-slate-700 p-6 sm:p-8 relative text-center max-h-[90vh] overflow-y-auto">
+            <button onclick="closeCheckout()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2" aria-label="Fechar checkout"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div id="checkout-loading" class="py-8 space-y-4 hidden"><div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div><h4 class="text-lg font-bold text-white">Criando pedido seguro...</h4><p class="text-xs text-slate-400">Aguardando resposta do servidor de pagamentos.</p></div>
+            <div id="checkout-content" class="hidden space-y-5">
+                <div><span class="text-xs text-blue-300 uppercase font-bold tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/30">PIX Mercado Pago</span><h3 class="text-2xl font-black mt-3">Finalize seu pagamento</h3><p class="text-xs text-slate-400 mt-1">O pedido só será confirmado após a notificação segura do provedor.</p></div>
+                <img id="pix-qr-image" alt="QR Code PIX gerado pelo Mercado Pago" class="hidden bg-white p-3 rounded-2xl w-52 h-52 mx-auto object-contain" />
+                <div id="pix-no-qr" class="hidden bg-slate-900/70 rounded-xl p-4 text-xs text-slate-300">O provedor não retornou QR Code. Use o código PIX abaixo, se disponível.</div>
+                <div><label for="pix-code" class="block text-left text-xs text-slate-400 mb-2">PIX copia e cola</label><div class="flex items-center gap-2 bg-darkBg border border-slate-700 rounded-xl p-2"><textarea id="pix-code" readonly rows="3" placeholder="O código PIX real aparecerá aqui" class="w-full bg-transparent text-xs text-slate-300 px-2 focus:outline-none font-mono resize-none"></textarea><button onclick="copyPixCode()" class="px-3 py-2 bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs rounded-lg">Copiar</button></div></div>
+                <div class="text-xs text-slate-400 bg-slate-900/60 p-3 rounded-xl border border-slate-800 text-left">Pedido: <strong id="checkout-order-id" class="text-white break-all">—</strong><br>Valor: <strong id="checkout-final-value" class="text-blue-300">R$ 0,00</strong><br>Passaporte: <strong id="checkout-user-id" class="text-white">—</strong><br>Status: <strong id="checkout-payment-status" class="text-amber-300">Aguardando pagamento</strong></div>
+                <div id="checkout-notice" class="ca-notice info"></div>
+                <button id="check-payment-btn" onclick="checkPaymentStatus()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-500 to-rose-500 text-white font-black text-sm">Consultar status do pedido</button>
+            </div>
+            <div id="checkout-error" class="hidden py-8"><div class="text-rose-300 text-4xl mb-3"><i class="fa-solid fa-triangle-exclamation"></i></div><h3 class="text-xl font-black">Não foi possível iniciar o pagamento</h3><p id="checkout-error-text" class="text-sm text-slate-300 mt-3"></p><p class="text-xs text-slate-500 mt-3">Nenhum pagamento foi confirmado. Tente novamente mais tarde ou fale com o suporte.</p></div>
+        </div>
+    </div>
+
+    <div id="login-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-sm rounded-3xl border border-slate-700 p-8 text-center relative">
+            <button onclick="toggleLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2" aria-label="Fechar login"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-300 border border-indigo-500/30 mx-auto mb-6"><i class="fa-brands fa-discord text-3xl"></i></div>
+            <h3 class="text-2xl font-black mb-2">Entrar com Discord</h3><p class="text-xs text-slate-400 mb-6">A autenticação é feita pelo Supabase Auth. Você será redirecionado ao Discord para autorizar o acesso.</p>
+            <button onclick="loginWithDiscord()" class="w-full py-3.5 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-sm flex items-center justify-center gap-2"><i class="fa-brands fa-discord text-lg"></i> Continuar com Discord</button>
+            <div id="login-notice" class="ca-notice info"></div>
+        </div>
+    </div>
+
+    <footer class="bg-darkBg border-t border-slate-800/80 pt-16 pb-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+                <!-- Col 1 -->
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 p-[2px]">
+                            <div class="w-full h-full bg-darkBg rounded-[10px] flex items-center justify-center">
+                                <i class="fa-solid fa-shield-halved text-neonBlue"></i>
+                            </div>
+                        </div>
+                        <span class="text-lg font-black tracking-wider bg-gradient-to-r from-neonBlue to-purple-400 bg-clip-text text-transparent">COMPLEXO AMÉRICA</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        A melhor e mais imersiva experiência de Roleplay do Brasil. Servidor otimizado, staff ativa 24/7 e economia balanceada.
+                    </p>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Navegação</h4>
+                    <ul class="space-y-2.5 text-xs text-slate-400">
+                        <li><a href="#inicio" class="hover:text-cyan-400 transition-colors">Início</a></li>
+                        <li><a href="#vips" class="hover:text-cyan-400 transition-colors">Planos VIP</a></li>
+                        <li><a href="#veiculos" class="hover:text-cyan-400 transition-colors">Veículos Importados</a></li>
+                        <li><a href="#dinheiro" class="hover:text-cyan-400 transition-colors">Dinheiro In-Game</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Comunidade</h4>
+                    <ul class="space-y-2.5 text-xs text-slate-400">
+                        <li><a href="https://discord.gg/complexoamerica" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-discord mr-2"></i> Discord Oficial</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-instagram mr-2"></i> Instagram</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-tiktok mr-2"></i> TikTok</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Suporte & Regras</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Dúvidas ou problemas com doações? Abra um ticket em nosso Discord. Consulte as regras de compra, entrega, reembolso e suporte antes de pagar.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Disclaimer & Copyright -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                <p class="text-[11px] text-slate-500 max-w-xl">
+                    O Complexo América não é afiliado à Rockstar Games, Take-Two Interactive ou qualquer outra desenvolvedora. Todos os direitos reservados aos criadores do FiveM e GTA V.
+                </p>
+                <p class="text-[11px] text-slate-500">
+                    © 2026 Complexo América RP. Desenvolvido com excelência.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+    <!-- Cart, authentication, payment and status logic are in app.js. -->
+    <script type="application/json" id="store-config-note">{"note":"Configure config.js and deploy the Supabase Edge Functions before enabling checkout."}</script>
+    <!-- Original inline simulation script intentionally removed: no fake login, payment or random player count. -->
+
+
+</body>
+</html>
