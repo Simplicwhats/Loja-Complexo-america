@@ -335,42 +335,37 @@
         );
       }
 
-      if (!result.order_id || !result.qr_code) {
-        throw new Error(
-          'O provedor não retornou os dados reais do PIX. Nenhum pagamento foi confirmado.'
-        );
-      }
+     if (
+  !result.order_id ||
+  !result.checkout_url ||
+  !result.checkout_url.startsWith('https://')
+) {
+  throw new Error(
+    'A InfinitePay não retornou um link de checkout válido.'
+  );
+}
 
-      currentOrderId = result.order_id;
+currentOrderId = result.order_id;
 
-      $('checkout-order-id').textContent = currentOrderId;
-      $('checkout-final-value').textContent = money(result.amount);
-      $('checkout-user-id').textContent = fivemId;
-      $('pix-code').value = result.qr_code;
+// Evita consultar o pedido enquanto o jogador está
+// na página externa de pagamento.
+if (paymentPollTimer) {
+  clearInterval(paymentPollTimer);
+  paymentPollTimer = null;
+}
 
-      $('checkout-payment-status').textContent =
-        'Aguardando pagamento';
+$('checkout-loading').classList.add('hidden');
+$('checkout-content').classList.add('hidden');
+$('checkout-error').classList.add('hidden');
 
-      const img = $('pix-qr-image');
+showNotice(
+  'checkout-notice',
+  'Redirecionando para o checkout seguro da InfinitePay...',
+  'info'
+);
 
-      if (result.qr_code_base64) {
-        img.src = 'data:image/png;base64,' + result.qr_code_base64;
-        img.classList.remove('hidden');
-        $('pix-no-qr').classList.add('hidden');
-      } else {
-        img.classList.add('hidden');
-        $('pix-no-qr').classList.remove('hidden');
-      }
-
-      $('checkout-loading').classList.add('hidden');
-      $('checkout-content').classList.remove('hidden');
-
-      showNotice(
-        'checkout-notice',
-        'PIX gerado pelo provedor. Esta tela não confirma pagamento; aguarde o webhook validado.',
-        'info'
-      );
-
+// O pagamento acontece no ambiente da InfinitePay.
+window.location.assign(result.checkout_url);
       startPaymentPolling();
     } catch (e) {
       $('checkout-loading').classList.add('hidden');
