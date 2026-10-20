@@ -577,7 +577,38 @@
       }
     }
   }
+function renderDescription(element, description) {
+  if (!element) return;
 
+  element.replaceChildren();
+
+  String(description || '').split(/\r?\n/).forEach((line, index) => {
+    if (index > 0) {
+      element.appendChild(document.createElement('br'));
+    }
+
+    const regex = /\*\*(.+?)\*\*/g;
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(line)) !== null) {
+      element.appendChild(
+        document.createTextNode(line.slice(lastIndex, match.index))
+      );
+
+      const strong = document.createElement('strong');
+      strong.className = 'text-white font-black';
+      strong.textContent = match[1];
+
+      element.appendChild(strong);
+      lastIndex = regex.lastIndex;
+    }
+
+    element.appendChild(
+      document.createTextNode(line.slice(lastIndex))
+    );
+  });
+}
   function renderManagedCatalog() {
     const filters = $('catalog-category-filters');
     const list = $('catalog-products');
@@ -731,9 +762,10 @@ description.className = 'text-sm text-slate-400 mt-2 flex-1';
 description.style.whiteSpace = 'pre-line';
 description.style.overflowWrap = 'anywhere';
 
-description.textContent =
-  p.description || 'Produto oficial da loja Complexo América RP.';
-
+renderDescription(
+  description,
+  p.description || 'Produto oficial da loja Complexo América RP.'
+);
       const footer = document.createElement('div');
 
       footer.className =
