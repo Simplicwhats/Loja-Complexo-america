@@ -366,7 +366,6 @@ showNotice(
 
 // O pagamento acontece no ambiente da InfinitePay.
 window.location.assign(result.checkout_url);
-      startPaymentPolling();
     } catch (e) {
       $('checkout-loading').classList.add('hidden');
       $('checkout-error').classList.remove('hidden');
@@ -880,26 +879,85 @@ renderDescription(
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    if (!hasSupabaseConfig) {
-      const b = $('auth-btn');
+ 
+document.addEventListener('DOMContentLoaded', () => {
+  if (!hasSupabaseConfig) {
+    const b = $('auth-btn');
 
-      if (b) {
-        b.title =
-          'Configure o Supabase para habilitar autenticação real.';
+    if (b) {
+      b.title =
+        'Configure o Supabase para habilitar autenticação real.';
+    }
+  }
+
+  refreshAuth();
+
+  if (supabase) {
+    supabase.auth.onAuthStateChange(() => refreshAuth());
+  }
+
+  refreshServerStatus();
+  setInterval(refreshServerStatus, 60000);
+
+  renderCart();
+  loadManagedCatalog();
+
+  // Detecta o retorno do checkout InfinitePay.
+  const params = new URLSearchParams(window.location.search);
+  const returnedFromPayment =
+    params.get('payment_return') === '1';
+
+  if (returnedFromPayment) {
+    const orderId = params.get('order_nsu');
+
+    if (orderId) {
+      currentOrderId = orderId;
+
+      const modal = $('checkout-modal');
+      if (modal) modal.classList.remove('hidden');
+
+      const loading = $('checkout-loading');
+      if (loading) loading.classList.remove('hidden');
+
+      const content = $('checkout-content');
+      if (content) content.classList.add('hidden');
+
+      const error = $('checkout-error');
+      if (error) error.classList.add('hidden');
+
+      const orderLabel = $('checkout-order-id');
+      if (orderLabel) orderLabel.textContent = orderId;
+
+      const statusLabel = $('checkout-payment-status');
+      if (statusLabel) {
+        statusLabel.textContent = 'Verificando pagamento...';
       }
+
+     // Verifica imediatamente e continua consultando
+// até o backend confirmar o pagamento.
+startPaymentPolling();
+
+window.checkPaymentStatus().finally(() => {
+  if (loading) loading.classList.add('hidden');
+  if (content) content.classList.remove('hidden');
+});
+    } else {
+      alert(
+        'Você voltou do checkout, mas não recebemos o identificador do pedido. Entre na sua conta e consulte o suporte se necessário.'
+      );
     }
 
-    refreshAuth();
+    // Remove apenas o parâmetro auxiliar da URL.
+    params.delete('payment_return');
 
-    if (supabase) {
-      supabase.auth.onAuthStateChange(() => refreshAuth());
-    }
+    const query = params.toString();
+    const cleanUrl =
+      window.location.pathname +
+      (query ? '?' + query : '') +
+      window.location.hash;
 
-    refreshServerStatus();
-    setInterval(refreshServerStatus, 60000);
-
-    renderCart();
-    loadManagedCatalog();
-  });
+    history.replaceState(null, '', cleanUrl);
+  }
+});
 })();
+
