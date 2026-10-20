@@ -725,14 +725,14 @@
       title.textContent = p.name || '';
 
       // DESCRIÇÃO: preserva as quebras de linha salvas no Supabase.
-      const description = document.createElement('p');
+     const description = document.createElement('p');
 
-      description.className = 'text-sm text-slate-400 mt-2 flex-1';
-      description.style.whiteSpace = 'pre-line';
-      description.style.overflowWrap = 'anywhere';
+description.className = 'text-sm text-slate-400 mt-2 flex-1';
+description.style.whiteSpace = 'pre-line';
+description.style.overflowWrap = 'anywhere';
 
-      description.textContent =
-        p.description || 'Produto oficial da loja Complexo América RP.';
+description.textContent =
+  p.description || 'Produto oficial da loja Complexo América RP.';
 
       const footer = document.createElement('div');
 
