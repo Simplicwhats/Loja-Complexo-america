@@ -370,21 +370,26 @@ function editProduct(p = {}) {
       <option value="${t}" ${p.product_type === t ? 'selected' : ''}>${t}</option>
     `).join('');
 
-  const descriptionField = `
-    <label class="block">
-      <span class="block text-sm font-bold mb-2">Descrição do produto</span>
-      <textarea
-  class="field w-full"
-  name="description"
-  rows="7"
-  placeholder="Digite os benefícios, um por linha..."
-  style="resize:vertical;white-space:pre-wrap"
-></textarea>
-      <span class="muted text-xs mt-1 block">
-        Escreva cada benefício em uma linha separada. Pressione Enter para quebrar a linha.
-      </span>
-    </label>
-  `;
+  
+const descriptionField = `
+  <label class="block">
+    <span class="block text-sm font-bold mb-2">
+      Descrição do produto
+    </span>
+    <textarea
+      class="field w-full"
+      name="description"
+      rows="7"
+      maxlength="10000"
+      placeholder="Digite os benefícios, um por linha..."
+      style="resize:vertical;white-space:pre-wrap"
+    >${esc(p.description || '')}</textarea>
+    <span class="muted text-xs mt-1 block">
+      Use Enter para separar linhas e **texto** para indicar negrito.
+    </span>
+  </label>
+`;
+
 
   openModal(
     p.id ? 'Editar produto' : 'Novo produto',
